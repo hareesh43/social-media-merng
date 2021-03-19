@@ -12,7 +12,7 @@ module.exports.validateRegisterInput = (
   if (password === "") {
     errors.password = "password  should not be empty";
   } else if (password != confirmPassword) {
-    errors.confirmPassword = "password  match";
+    errors.confirmPassword = "password does not match";
   }
 
   if (email.trim() === "") {
@@ -29,10 +29,11 @@ module.exports.validateRegisterInput = (
   };
 };
 
-module.exports.validateLogin = (username, password) => {
+module.exports.validateLoginInput = (username, password) => {
   const errors = {};
   if (username.trim() === "") {
     errors.username = "username should not be empty";
+   
   }
 
   if (password === "") {
@@ -40,6 +41,6 @@ module.exports.validateLogin = (username, password) => {
   }
   return {
     errors,
-    valid: Object.keys(errors).lenght < 1,
+    valid: Object.keys(errors).lenght < 1
   };
 };
