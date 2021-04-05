@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "semantic-ui-css/semantic.min.css";
 import { Container } from "semantic-ui-react";
 import "./App.css";
@@ -8,7 +8,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 
-function App() {
+export default function App() {
   return (
     <Router>
       <Container>
@@ -22,5 +22,3 @@ function App() {
     </Router>
   );
 }
-
-export default App;

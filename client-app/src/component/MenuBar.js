@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, {  useState } from "react";
 import { Menu, Segment } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
