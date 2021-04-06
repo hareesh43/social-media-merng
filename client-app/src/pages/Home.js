@@ -6,18 +6,20 @@ import PostCard from "../component/PostCard";
 
 export default function Home() {
   const { loading, data } = useQuery(query);
-  const posts = data.getPosts;
- 
+  if (data) {
+    console.log(data);
+  }
+
   return (
     <Grid columns={3}>
-      <Grid.Row>
+      <Grid.Row className="post-title">
         <h1>Recent Posts</h1>
       </Grid.Row>
       <Grid.Row>
         {loading ? (
           <h2>Loging Posts ...</h2>
         ) : (
-          posts.map((post) => (
+          data.getPosts.map((post) => (
             <Grid.Column key={post.id} style={{ marginBottom: "20px" }}>
               <PostCard post={post} />
             </Grid.Column>
@@ -37,7 +39,6 @@ const query = gql`
       username
       comments {
         id
-        username
         username
         body
       }
