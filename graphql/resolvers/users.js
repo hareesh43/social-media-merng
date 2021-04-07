@@ -27,7 +27,8 @@ module.exports = {
 
       const { errors, valid } = validateLoginInput(username, password);
 
-      if (valid) {
+
+      if (Object.keys(errors).length > 0) {
         throw new UserInputError("Errors", { errors });
       }
       // const errors = {};
@@ -56,25 +57,27 @@ module.exports = {
       _,
       { registerInput: { username, email, password, confirmPassword } }
     ) {
-      const { valid, errors } = validateRegisterInput(
+      const { errors,valid } = validateRegisterInput(
         username,
         password,
         confirmPassword,
         email
       );
-      console.log(valid, errors);
-      if (valid) {
+     console.log(valid,errors);
+      if (Object.keys(errors).length > 0) {
         throw new UserInputError("Errors", { errors });
       }
       // TODO: Make sure user doesnt already exist
       const user = await User.findOne({ username });
       if (user) {
+       
         throw new UserInputError("Username is taken", {
-          errors: {
-            username: "This username is taken",
-          },
+          errors:{
+            username:"user name is taken"
+          }
         });
       }
+      console.log(errors)
       // hash password and create an auth token
       password = await bcrypt.hash(password, 12);
 

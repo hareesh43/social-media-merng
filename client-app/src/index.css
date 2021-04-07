@@ -1,7 +1,11 @@
-.post-title{
-    display:block !important;
-    margin-top:10px;
-    text-align: center;
-    font-size: 2rem;
+.post-title {
+  display: block !important;
+  margin-top: 10px;
+  text-align: center;
+  font-size: 2rem;
+}
 
+.form-container {
+  width: 400px;
+  margin: auto;
 }
