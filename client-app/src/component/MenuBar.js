@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 export default function MenuBar() {
   const pathname = window.location.pathname;
+  // path name has bug after register and redirect to home
   const path = pathname === "/" ? "home" : pathname.substr(1);
 
   const [activeItem, setActiveItem] = useState(path);

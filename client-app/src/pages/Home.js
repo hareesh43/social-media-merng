@@ -6,9 +6,6 @@ import PostCard from "../component/PostCard";
 
 export default function Home() {
   const { loading, data } = useQuery(query);
-  if (data) {
-    console.log(data);
-  }
 
   return (
     <Grid columns={3}>

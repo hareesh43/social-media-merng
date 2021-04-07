@@ -3,32 +3,32 @@ import { Button, Form } from "semantic-ui-react";
 import gql from "graphql-tag";
 import { useMutation } from "@apollo/react-hooks";
 
-export default function Register() {
-  const [values, setValues] = useState({
+import { useForm } from "../utils/hooks";
+
+export default function Register(props) {
+
+  const { onChange, onSubmit, values } = useForm(registerUser, {
     username: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
+
   const [errors, setErrors] = useState({});
+
   const [addUser, { loading }] = useMutation(REGISTER_USER, {
-    update(proxy, result) {
-      console.log("result = ", result);
+    update(_, result) {
+      props.history.push("/");
     },
     onError(error) {
-      console.log(error.graphQLErrors[0].extensions.errors);
       setErrors(error.graphQLErrors[0].extensions.errors);
     },
     variables: values,
   });
-
-  const onChange = (event) => {
-    setValues({ ...values, [event.target.name]: event.target.value });
-  };
-  const onSubmit = (event) => {
-    event.preventDefault();
+  function registerUser() {
     addUser();
-  };
+  }
+
   return (
     <div className="form-container">
       <Form onSubmit={onSubmit} noValidate className={loading ? "loading" : ""}>
