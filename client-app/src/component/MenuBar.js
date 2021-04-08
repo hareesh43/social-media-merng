@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Menu, Segment } from "semantic-ui-react";
+import { Menu } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 import { AuthContext } from "../context/Auth";
@@ -14,8 +14,6 @@ export default function MenuBar() {
   const [activeItem, setActiveItem] = useState(path);
 
   const handleItemClick = (e, { name }) => setActiveItem(name);
-
-  const onLogout = () => {};
 
   const menuBar = user ? (
     <div>
