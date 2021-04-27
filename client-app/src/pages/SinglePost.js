@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import gql from "graphql-tag";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import {
@@ -15,11 +15,13 @@ import moment from "moment";
 import { AuthContext } from "../context/Auth";
 import LikePostButton from "../component/LikePostButton";
 import DeleteButton from "../component/DeleteButton";
+import MyPopup from "../utils/MyPopup";
 
 export default function SinglePost(props) {
   const { user } = useContext(AuthContext);
   const postId = props.match.params.postId;
   const [commentText, setCommentText] = useState("");
+  const commentInputRef = useRef(null);
 
   const { data: { getPost } = {} } = useQuery(FETCH_GET_POST_QUERY, {
     variables: {
@@ -30,6 +32,7 @@ export default function SinglePost(props) {
   const [submitComment] = useMutation(ADD_COMMENT_MUTATION, {
     update() {
       setCommentText("");
+      commentInputRef.current.blur();
     },
     variables: { postId, body: commentText },
   });
@@ -38,8 +41,6 @@ export default function SinglePost(props) {
     props.history.push("/");
   };
   let postMarkup;
-
-  console.log(getPost);
 
   if (!getPost) {
     postMarkup = <p>Loading the post...</p>;
@@ -75,18 +76,17 @@ export default function SinglePost(props) {
               <hr />
               <Card.Content extra>
                 <LikePostButton user={user} post={{ id, likes, likeCount }} />
-                <Button
-                  as="div"
-                  labelPosition="right"
-                  onClick={() => console.log("comment post ")}
-                >
-                  <Button color="blue" basic>
-                    <Icon name="comments" />
-                    <Label basic color="blue" poining="left">
-                      {commentCount}
-                    </Label>
+                <MyPopup content="Comment Post">
+                  <Button Button labelPosition="right">
+                    <Button color="blue" basic>
+                      <Icon name="comments" />
+                      <Label basic color="blue" poining="left">
+                        {commentCount}
+                      </Label>
+                    </Button>
                   </Button>
-                </Button>
+                </MyPopup>
+
                 {user && user.username === username && (
                   <DeleteButton postId={id} callback={deletePostCallback} />
                 )}
@@ -96,6 +96,7 @@ export default function SinglePost(props) {
               <Card fluid>
                 <Card.Content>
                   <Form>
+                    <p>Add Comment</p>
                     <div className="ui action input fluid">
                       <input
                         type="text"
@@ -103,6 +104,7 @@ export default function SinglePost(props) {
                         name="comment"
                         value={commentText}
                         onChange={(event) => setCommentText(event.target.value)}
+                        ref={commentInputRef}
                       />
                       <button
                         type="submit"

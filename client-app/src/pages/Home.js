@@ -9,8 +9,7 @@ import { FETCH_GET_POSTS } from "../utils/graphql";
 
 export default function Home() {
   const { user } = useContext(AuthContext);
-  const { loading, data:{getPosts} = {} } = useQuery(FETCH_GET_POSTS);
-  console.log(getPosts)
+  const { loading, data: { getPosts } = {} } = useQuery(FETCH_GET_POSTS);
 
   return (
     <Grid columns={3}>
