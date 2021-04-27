@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useMutation, useQuery } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/react-hooks";
 import { Button, Icon, Label } from "semantic-ui-react";
 import gql from "graphql-tag";
 import { Link } from "react-router-dom";
@@ -18,7 +18,7 @@ export default function LikePostButton({
     }
   }, [likes, user]);
 
-  const [likePost, { error }] = useMutation(LIKE_POST_MUTATION, {
+  const [likePost] = useMutation(LIKE_POST_MUTATION, {
     variables: { postId: id },
     onError(error) {
       console.log(error);

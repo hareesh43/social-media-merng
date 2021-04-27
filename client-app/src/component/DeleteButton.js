@@ -8,9 +8,7 @@ import { FETCH_GET_POSTS } from "../utils/graphql";
 export default function DeleteButton({ postId, commentId, callback }) {
   const [confirmOpen, setConfirmOpen] = useState(false);
 
-  const mutation = commentId
-    ? DELETE_COMMENT_MUTATION
-    : DELETE_COMMENT_MUTATION;
+  const mutation = commentId ? DELETE_COMMENT_MUTATION : DELETE_POST_MUTATION;
   const [deletePostOrMutation] = useMutation(mutation, {
     update(proxy) {
       setConfirmOpen(false);
@@ -37,7 +35,7 @@ export default function DeleteButton({ postId, commentId, callback }) {
 
       if (callback) callback();
     },
-    variables: { postId,commentId },
+    variables: { postId, commentId },
   });
   return (
     <>
