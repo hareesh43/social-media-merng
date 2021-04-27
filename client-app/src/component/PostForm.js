@@ -17,7 +17,8 @@ export default function PostForm() {
       setErrors(error.graphQLErrors[0].extensions.errors);
     },
     update(proxy, result) {
-      const data = proxy.readQuery({
+      
+      const data = proxy.readQuery({  
         query: FETCH_GET_POSTS,
       });
 

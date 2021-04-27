@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useQuery } from "@apollo/react-hooks";
-import { Grid } from "semantic-ui-react";
+import { Grid, Transition } from "semantic-ui-react";
 import PostCard from "../component/PostCard";
 import PostForm from "../component/PostForm";
 import { AuthContext } from "../context/Auth";
@@ -9,7 +9,8 @@ import { FETCH_GET_POSTS } from "../utils/graphql";
 
 export default function Home() {
   const { user } = useContext(AuthContext);
-  const { loading, data } = useQuery(FETCH_GET_POSTS);
+  const { loading, data:{getPosts} = {} } = useQuery(FETCH_GET_POSTS);
+  console.log(getPosts)
 
   return (
     <Grid columns={3}>
@@ -27,11 +28,14 @@ export default function Home() {
         {loading ? (
           <h2>Loging Posts ...</h2>
         ) : (
-          data.getPosts.map((post) => (
-            <Grid.Column key={post.id} style={{ marginBottom: "20px" }}>
-              <PostCard post={post} />
-            </Grid.Column>
-          ))
+          <Transition.Group>
+            {getPosts &&
+              getPosts.map((post) => (
+                <Grid.Column key={post.id} style={{ marginBottom: "20px" }}>
+                  <PostCard post={post} />
+                </Grid.Column>
+              ))}
+          </Transition.Group>
         )}
       </Grid.Row>
     </Grid>

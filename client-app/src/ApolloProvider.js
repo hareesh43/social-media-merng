@@ -14,7 +14,7 @@ const authLink = setContext(() => {
     },
   };
 });
-console.log(authLink);
+
 
 const httpLink = createHttpLink({
   uri: "http://localhost:3000/",

@@ -10,6 +10,7 @@ import Register from "./pages/Register";
 
 import { AuthProvider } from "./context/Auth";
 import AuthRoute from './utils/AuthRoute'
+import SinglePost from "./pages/SinglePost";
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
             <Route exact path="/" component={Home} />
             <AuthRoute exact path="/login" component={Login} />
             <AuthRoute exact path="/register" component={Register} />
+            <Route exact path="/posts/:postId" component={SinglePost} />
           </Switch>
         </Container>
       </Router>
