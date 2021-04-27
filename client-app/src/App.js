@@ -8,17 +8,24 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 
+import { AuthProvider } from "./context/Auth";
+import AuthRoute from './utils/AuthRoute'
+import SinglePost from "./pages/SinglePost";
+
 export default function App() {
   return (
-    <Router>
-      <Container>
-        <MenuBar />
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/register" component={Register} />
-        </Switch>
-      </Container>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Container>
+          <MenuBar />
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <AuthRoute exact path="/login" component={Login} />
+            <AuthRoute exact path="/register" component={Register} />
+            <Route exact path="/posts/:postId" component={SinglePost} />
+          </Switch>
+        </Container>
+      </Router>
+    </AuthProvider>
   );
 }
